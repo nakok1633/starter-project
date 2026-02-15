@@ -160,4 +160,34 @@
   .input-md {
     @apply max-w-md;
   }
+
+  /* 관리자 대시보드 통계 카드 그리드 */
+  .stats-grid {
+    @apply grid grid-cols-2 md:grid-cols-4 gap-4;
+  }
+
+  /* 관리자 대시보드 통계 카드 */
+  .stat-card {
+    @apply bg-white rounded-lg shadow p-6;
+  }
+
+  /* 관리자 대시보드 통계 값 */
+  .stat-value {
+    @apply text-2xl font-bold;
+  }
+
+  /* 관리자 대시보드 통계 라벨 */
+  .stat-label {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* 뱃지 기본 스타일 */
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+  }
+
+  /* 테이블 액션 버튼 그룹 */
+  .table-actions {
+    @apply flex gap-2;
+  }
 }

@@ -1,6 +1,7 @@
 package com.starter.repository;
 
 import com.starter.entity.Task;
+import com.starter.entity.TaskStatus;
 import com.starter.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,4 +25,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
            "(LOWER(t.title) LIKE LOWER(CONCAT('%', :search, '%')) OR " +
            "LOWER(t.description) LIKE LOWER(CONCAT('%', :search, '%')))")
     Page<Task> findAllWithSearch(@Param("search") String search, Pageable pageable);
+    
+    // 상태별 Task 수 조회 (관리자 대시보드용)
+    long countByStatus(TaskStatus status);
 }

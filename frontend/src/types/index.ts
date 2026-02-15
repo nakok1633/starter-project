@@ -177,3 +177,52 @@ export interface UpdateUserRequest {
   currentPassword?: string;   // 현재 비밀번호 (비밀번호 변경 시 필수)
   newPassword?: string;       // 새 비밀번호 (선택)
 }
+
+/**
+ * ============================================================
+ * 관리자 API 타입 정의
+ * ============================================================
+ */
+
+/** 사용자 상태 타입 (관리자용) */
+export type UserStatus = 'ACTIVE' | 'INACTIVE' | 'SUSPENDED';
+// ACTIVE: 활성, INACTIVE: 비활성 (휴면), SUSPENDED: 정지
+
+/**
+ * 관리자용 사용자 정보 타입
+ * 관리자 페이지에서 사용자 목록/상세에 사용됩니다.
+ */
+export interface AdminUser {
+  id: number;                  // 사용자 고유 ID
+  email: string;               // 이메일
+  name: string;                // 이름
+  role: 'USER' | 'ADMIN';      // 역할
+  status: UserStatus;          // 상태 (ACTIVE, INACTIVE, SUSPENDED)
+  createdAt: string;           // 가입일
+  updatedAt: string;           // 수정일
+}
+
+/**
+ * 관리자용 사용자 수정 요청 타입
+ * PUT /api/admin/users/:id 요청 형식
+ */
+export interface AdminUserUpdateRequest {
+  role: 'USER' | 'ADMIN';      // 역할
+  status: UserStatus;          // 상태
+}
+
+/**
+ * 관리자 대시보드 통계 타입
+ * GET /api/admin/dashboard 응답 형식
+ */
+export interface AdminDashboard {
+  totalUsers: number;        // 전체 사용자 수
+  activeUsers: number;       // 활성 사용자 수
+  inactiveUsers: number;     // 비활성 사용자 수
+  suspendedUsers: number;    // 정지된 사용자 수
+  totalTasks: number;        // 전체 Task 수
+  todoTasks: number;         // TODO 상태 Task 수
+  inProgressTasks: number;   // IN_PROGRESS 상태 Task 수
+  doneTasks: number;         // DONE 상태 Task 수
+  todayNewUsers: number;     // 오늘 가입한 사용자 수
+}

@@ -147,7 +147,7 @@ api.interceptors.response.use(
  * ============================================================
  */
 
-import { UserResponse, UpdateUserRequest } from '@/types';
+import { UserResponse, UpdateUserRequest, AdminUser, AdminUserUpdateRequest, AdminDashboard, PageResponse } from '@/types';
 
 /**
  * 현재 로그인한 사용자 정보 조회
@@ -165,4 +165,61 @@ export const getUser = async (): Promise<UserResponse> => {
 export const updateUser = async (data: UpdateUserRequest): Promise<UserResponse> => {
   const response = await api.put<UserResponse>('/api/users/me', data);
   return response.data;
+};
+
+/**
+ * ============================================================
+ * 관리자 API 함수들
+ * ============================================================
+ * - /api/admin/** 엔드포인트는 ADMIN 역할만 접근 가능
+ */
+
+/**
+ * 관리자 대시보드 통계 조회
+ * GET /api/admin/dashboard
+ */
+export const getAdminDashboard = async (): Promise<AdminDashboard> => {
+  const response = await api.get<AdminDashboard>('/api/admin/dashboard');
+  return response.data;
+};
+
+/**
+ * 관리자 사용자 목록 조회
+ * GET /api/admin/users?page=0&size=10&search=검색어&sortBy=createdAt&sortDir=desc
+ */
+export const getAdminUsers = async (params: {
+  page?: number;
+  size?: number;
+  search?: string;
+  sortBy?: string;
+  sortDir?: string;
+}): Promise<PageResponse<AdminUser>> => {
+  const response = await api.get<PageResponse<AdminUser>>('/api/admin/users', { params });
+  return response.data;
+};
+
+/**
+ * 관리자 사용자 상세 조회
+ * GET /api/admin/users/:id
+ */
+export const getAdminUser = async (id: number): Promise<AdminUser> => {
+  const response = await api.get<AdminUser>(`/api/admin/users/${id}`);
+  return response.data;
+};
+
+/**
+ * 관리자 사용자 정보 수정
+ * PUT /api/admin/users/:id
+ */
+export const updateAdminUser = async (id: number, data: AdminUserUpdateRequest): Promise<AdminUser> => {
+  const response = await api.put<AdminUser>(`/api/admin/users/${id}`, data);
+  return response.data;
+};
+
+/**
+ * 관리자 사용자 삭제
+ * DELETE /api/admin/users/:id
+ */
+export const deleteAdminUser = async (id: number): Promise<void> => {
+  await api.delete(`/api/admin/users/${id}`);
 };

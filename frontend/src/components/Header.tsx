@@ -126,6 +126,17 @@ export function Header() {
             >
               UI 컴포넌트
             </a>
+            {/* ADMIN 역할인 경우에만 관리자 메뉴 표시 */}
+            {isAuthenticated && user?.role === 'ADMIN' && (
+              <a
+                href="/admin"
+                className={`text-sm font-medium hover:text-blue-600 ${
+                  pathname?.startsWith("/admin") ? "text-blue-600" : "text-gray-600"
+                }`}
+              >
+                관리자
+              </a>
+            )}
           </div>
         </div>
 
