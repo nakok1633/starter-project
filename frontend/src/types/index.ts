@@ -154,6 +154,26 @@ export interface FieldError {
   field: string;        // 오류가 발생한 필드명 (예: "email")
   message: string;      // 오류 메시지 (예: "이메일 형식이 올바르지 않습니다")
 }
-  field: string;        // 필드명
-  message: string;      // 오류 메시지
+
+/**
+ * 사용자 정보 응답 타입 (상세 정보)
+ * GET /api/users/me 응답 형식
+ */
+export interface UserResponse {
+  id: number;           // 사용자 고유 ID
+  email: string;        // 이메일
+  name: string;         // 이름
+  role: 'USER' | 'ADMIN';  // 역할
+  createdAt: string;    // 가입일
+  updatedAt: string;    // 수정일
+}
+
+/**
+ * 사용자 정보 수정 요청 타입
+ * PUT /api/users/me 요청 형식
+ */
+export interface UpdateUserRequest {
+  name?: string;              // 변경할 이름 (선택)
+  currentPassword?: string;   // 현재 비밀번호 (비밀번호 변경 시 필수)
+  newPassword?: string;       // 새 비밀번호 (선택)
 }

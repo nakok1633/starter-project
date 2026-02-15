@@ -140,3 +140,29 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+/**
+ * ============================================================
+ * 사용자 API 함수들
+ * ============================================================
+ */
+
+import { UserResponse, UpdateUserRequest } from '@/types';
+
+/**
+ * 현재 로그인한 사용자 정보 조회
+ * GET /api/users/me
+ */
+export const getUser = async (): Promise<UserResponse> => {
+  const response = await api.get<UserResponse>('/api/users/me');
+  return response.data;
+};
+
+/**
+ * 현재 로그인한 사용자 정보 수정
+ * PUT /api/users/me
+ */
+export const updateUser = async (data: UpdateUserRequest): Promise<UserResponse> => {
+  const response = await api.put<UserResponse>('/api/users/me', data);
+  return response.data;
+};

@@ -173,6 +173,13 @@ curl -X POST http://localhost:8080/api/auth/signup \
 | PUT | `/api/tasks/{id}` | 태스크 수정 |
 | DELETE | `/api/tasks/{id}` | 태스크 삭제 |
 
+### User API (인증 필요)
+
+| Method | Endpoint | 설명 |
+|--------|----------|------|
+| GET | `/api/users/me` | 내 정보 조회 |
+| PUT | `/api/users/me` | 내 정보 수정 (이름/비밀번호) |
+
 ---
 
 ## 테스트 실행
@@ -198,6 +205,7 @@ npm test
 | 경로 | 설명 |
 |------|------|
 | `/login` | 로그인/회원가입 |
+| `/profile` | 내 정보 (이름/비밀번호 변경) |
 | `/tasks` | 태스크 목록 (검색/페이지네이션) |
 | `/tasks/new` | 새 태스크 생성 |
 | `/tasks/[id]/edit` | 태스크 수정 |

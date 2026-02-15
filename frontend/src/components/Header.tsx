@@ -144,9 +144,13 @@ export function Header() {
           ) : isAuthenticated && user ? (
             // 로그인 된 경우: 사용자 정보 + 로그아웃 버튼
             <>
-              <span className="text-sm text-gray-600">
+              {/* 유저명 클릭 시 프로필 페이지로 이동 */}
+              <a 
+                href="/profile" 
+                className="text-sm text-gray-600 hover:text-blue-600 cursor-pointer"
+              >
                 {user.name} ({user.role})
-              </span>
+              </a>
               <Button variant="outline" size="sm" onClick={handleLogout}>
                 로그아웃
               </Button>

@@ -39,6 +39,7 @@ interface AuthState {
   signup: (data: SignupRequest) => Promise<void>;     // 회원가입 함수
   logout: () => Promise<void>;                        // 로그아웃 함수
   initialize: () => void;                             // 앱 시작 시 상태 복원 함수
+  setUser: (user: User) => void;                      // 사용자 정보 업데이트 함수
 }
 
 /**
@@ -134,5 +135,13 @@ export const useAuthStore = create<AuthState>((set) => ({
       localStorage.removeItem('user');
       set({ user: null, isAuthenticated: false });
     }
+  },
+
+  /**
+   * 사용자 정보 업데이트: 프로필 수정 시 사용
+   */
+  setUser: (user: User) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    set({ user });
   },
 }));
