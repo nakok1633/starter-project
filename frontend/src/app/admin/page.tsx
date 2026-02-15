@@ -91,72 +91,74 @@ export default function AdminDashboardPage() {
   return (
     <div className="page-container">
       <div className="content-wrapper">
-        {/* 페이지 헤더 */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2">관리자 대시보드</h1>
-          <p className="page-description">시스템 전체 통계 및 관리 기능</p>
-        </div>
-
-        {/* 관리 메뉴 */}
-        <div className="mb-8">
-          <Link href="/admin/users">
-            <Button>사용자 관리</Button>
-          </Link>
-        </div>
-
-        {/* 사용자 통계 */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold mb-4">사용자 현황</h2>
-          <div className="stats-grid">
-            <div className="stat-card">
-              <p className="stat-label">전체 사용자</p>
-              <p className="stat-value text-blue-600">{dashboard.totalUsers}</p>
-            </div>
-            <div className="stat-card">
-              <p className="stat-label">활성 사용자</p>
-              <p className="stat-value text-green-600">{dashboard.activeUsers}</p>
-            </div>
-            <div className="stat-card">
-              <p className="stat-label">비활성 사용자</p>
-              <p className="stat-value text-gray-600">{dashboard.inactiveUsers}</p>
-            </div>
-            <div className="stat-card">
-              <p className="stat-label">정지된 사용자</p>
-              <p className="stat-value text-red-600">{dashboard.suspendedUsers}</p>
+        <div className="card-container">
+          <div className="card-header">
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="page-title">관리자 대시보드</h2>
+                <p className="page-description">시스템 전체 통계 및 관리 기능</p>
+              </div>
+              <Link href="/admin/users">
+                <Button>사용자 관리</Button>
+              </Link>
             </div>
           </div>
-        </div>
+          <div className="card-body">
+            {/* 사용자 통계 */}
+            <div className="mb-8">
+              <h3 className="text-md font-semibold mb-4">사용자 현황</h3>
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <p className="stat-label">전체 사용자</p>
+                  <p className="stat-value text-blue-600">{dashboard.totalUsers}</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-label">활성 사용자</p>
+                  <p className="stat-value text-green-600">{dashboard.activeUsers}</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-label">비활성 사용자</p>
+                  <p className="stat-value text-gray-600">{dashboard.inactiveUsers}</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-label">정지된 사용자</p>
+                  <p className="stat-value text-red-600">{dashboard.suspendedUsers}</p>
+                </div>
+              </div>
+            </div>
 
-        {/* Task 통계 */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold mb-4">Task 현황</h2>
-          <div className="stats-grid">
-            <div className="stat-card">
-              <p className="stat-label">전체 Task</p>
-              <p className="stat-value text-blue-600">{dashboard.totalTasks}</p>
+            {/* Task 통계 */}
+            <div className="mb-8">
+              <h3 className="text-md font-semibold mb-4">Task 현황</h3>
+              <div className="stats-grid">
+                <div className="stat-card">
+                  <p className="stat-label">전체 Task</p>
+                  <p className="stat-value text-blue-600">{dashboard.totalTasks}</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-label">대기</p>
+                  <p className="stat-value text-yellow-600">{dashboard.todoTasks}</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-label">진행중</p>
+                  <p className="stat-value text-blue-600">{dashboard.inProgressTasks}</p>
+                </div>
+                <div className="stat-card">
+                  <p className="stat-label">완료</p>
+                  <p className="stat-value text-green-600">{dashboard.doneTasks}</p>
+                </div>
+              </div>
             </div>
-            <div className="stat-card">
-              <p className="stat-label">TODO</p>
-              <p className="stat-value text-yellow-600">{dashboard.todoTasks}</p>
-            </div>
-            <div className="stat-card">
-              <p className="stat-label">진행중</p>
-              <p className="stat-value text-blue-600">{dashboard.inProgressTasks}</p>
-            </div>
-            <div className="stat-card">
-              <p className="stat-label">완료</p>
-              <p className="stat-value text-green-600">{dashboard.doneTasks}</p>
-            </div>
-          </div>
-        </div>
 
-        {/* 오늘의 통계 */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold mb-4">오늘의 통계</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="stat-card">
-              <p className="stat-label">오늘 신규 가입</p>
-              <p className="stat-value text-purple-600">{dashboard.todayNewUsers}</p>
+            {/* 오늘의 통계 */}
+            <div>
+              <h3 className="text-md font-semibold mb-4">오늘의 통계</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="stat-card">
+                  <p className="stat-label">오늘 신규 가입</p>
+                  <p className="stat-value text-purple-600">{dashboard.todayNewUsers}</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

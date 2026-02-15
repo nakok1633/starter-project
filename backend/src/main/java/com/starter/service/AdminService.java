@@ -49,9 +49,9 @@ public class AdminService {
                 .inactiveUsers(userRepository.countByStatus(UserStatus.INACTIVE))
                 .suspendedUsers(userRepository.countByStatus(UserStatus.SUSPENDED))
                 .totalTasks(taskRepository.count())
-                .todoTasks(taskRepository.countByStatus(TaskStatus.TODO))
+                .todoTasks(taskRepository.countByStatus(TaskStatus.PENDING))
                 .inProgressTasks(taskRepository.countByStatus(TaskStatus.IN_PROGRESS))
-                .doneTasks(taskRepository.countByStatus(TaskStatus.DONE))
+                .doneTasks(taskRepository.countByStatus(TaskStatus.COMPLETED))
                 .todayNewUsers(userRepository.countByCreatedAtAfter(todayStart))
                 .build();
     }

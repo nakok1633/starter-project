@@ -128,13 +128,18 @@ export default function AdminUserEditPage() {
   return (
     <div className="page-container">
       <div className="content-wrapper">
-        {/* 페이지 헤더 */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold mb-2">사용자 수정</h1>
-          <p className="page-description">사용자 역할 및 상태를 변경합니다.</p>
-        </div>
-
         <div className="card-container">
+          <div className="card-header">
+            <div className="flex justify-between items-center">
+              <div>
+                <h2 className="page-title">사용자 수정</h2>
+                <p className="page-description">사용자 역할 및 상태를 변경합니다.</p>
+              </div>
+              <Link href="/admin/users">
+                <Button variant="outline">목록으로</Button>
+              </Link>
+            </div>
+          </div>
           <div className="card-body">
             {/* 사용자 기본 정보 (읽기 전용) */}
             <div className="mb-8 p-4 bg-gray-50 rounded-lg">
