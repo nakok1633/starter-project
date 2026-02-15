@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     
     private final UserService userService;
+    private final SecurityUtils securityUtils;
     
     /**
      * 현재 로그인한 사용자 정보 조회
@@ -26,7 +27,7 @@ public class UserController {
      */
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser() {
-        Long userId = SecurityUtils.getCurrentUserId();
+        Long userId = securityUtils.getCurrentUser().getId();
         UserResponse response = userService.getUser(userId);
         return ResponseEntity.ok(response);
     }
@@ -37,7 +38,7 @@ public class UserController {
      */
     @PutMapping("/me")
     public ResponseEntity<UserResponse> updateCurrentUser(@Valid @RequestBody UpdateUserRequest request) {
-        Long userId = SecurityUtils.getCurrentUserId();
+        Long userId = securityUtils.getCurrentUser().getId();
         UserResponse response = userService.updateUser(userId, request);
         return ResponseEntity.ok(response);
     }
