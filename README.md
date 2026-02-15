@@ -272,3 +272,58 @@ docker-compose down
 # 볼륨까지 삭제 (DB 데이터 포함)
 docker-compose down -v
 ```
+
+---
+
+## 페이지 레이아웃 가이드
+
+새 페이지 생성 시 아래 표준 레이아웃을 사용하세요.
+
+### 일반 페이지 (목록, 상세, 설정 등)
+
+```tsx
+return (
+  <div className="min-h-screen bg-gray-50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white rounded-lg shadow">
+        {/* 헤더 영역 */}
+        <div className="p-6 border-b">
+          <div>
+            <h1 className="text-lg font-semibold">페이지 제목</h1>
+            <p className="text-sm text-muted-foreground">페이지 설명</p>
+          </div>
+        </div>
+        {/* 본문 영역 */}
+        <div className="p-6">
+          {/* 내용 */}
+        </div>
+      </div>
+    </div>
+  </div>
+)
+```
+
+### 로딩 화면
+
+```tsx
+if (isLoading) {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    </div>
+  )
+}
+```
+
+### 센터 정렬 페이지 (로그인, 에러 등)
+
+```tsx
+return (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+    <Card className="w-full max-w-md">
+      {/* 내용 */}
+    </Card>
+  </div>
+)
+```
+
