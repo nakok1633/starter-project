@@ -18,7 +18,6 @@ import { useAuthStore } from "@/lib/auth-store"
 import { api } from "@/lib/api"
 import { Task, TaskRequest, TaskStatus, TaskPriority, ErrorResponse } from "@/types"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { FormField } from "@/components/FormField"
 import { AxiosError } from "axios"
 
@@ -129,7 +128,7 @@ export default function EditTaskPage() {
 
   if (authLoading || isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     )
@@ -138,68 +137,61 @@ export default function EditTaskPage() {
   if (!task && !isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <header className="bg-white border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center h-16">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => router.push("/tasks")}
-                className="mr-4"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                돌아가기
-              </Button>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="bg-white rounded-lg shadow">
+            <div className="p-6 border-b">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => router.push("/tasks")}
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  돌아가기
+                </Button>
+              </div>
             </div>
-          </div>
-        </header>
-        <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Card>
-            <CardContent className="py-8">
-              <p className="text-center text-muted-foreground">
+            <div className="p-6">
+              <p className="text-center text-muted-foreground py-8">
                 {error || "태스크를 찾을 수 없습니다"}
               </p>
-            </CardContent>
-          </Card>
-        </main>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => router.push("/tasks")}
-              className="mr-4"
-            >
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              돌아가기
-            </Button>
-            <h1 className="text-xl font-bold">태스크 수정</h1>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow">
+          {/* 헤더 영역 */}
+          <div className="p-6 border-b">
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => router.push("/tasks")}
+              >
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                돌아가기
+              </Button>
+              <div>
+                <h1 className="text-lg font-semibold">태스크 수정</h1>
+                <p className="text-sm text-muted-foreground">태스크 정보를 수정합니다</p>
+              </div>
+            </div>
           </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>태스크 정보 수정</CardTitle>
-          </CardHeader>
-          <CardContent>
+          {/* 본문 영역 */}
+          <div className="p-6">
             {error && (
               <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
                 <p className="text-sm text-destructive">{error}</p>
               </div>
             )}
 
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl">
               <FormField
                 control={form.control}
                 name="title"
@@ -249,9 +241,9 @@ export default function EditTaskPage() {
                 </Button>
               </div>
             </form>
-          </CardContent>
-        </Card>
-      </main>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
