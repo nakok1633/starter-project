@@ -1,3 +1,11 @@
+/**
+ * 범용 데이터 테이블 컴포넌트
+ * - TanStack Table 기반
+ * - 서버사이드/클라이언트사이드 페이지네이션 지원
+ * - 검색, 정렬 기능 포함
+ * - 로딩 상태 표시
+ */
+
 "use client"
 
 import * as React from "react"
@@ -18,19 +26,20 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
+/** DataTable 컴포넌트 Props */
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  searchPlaceholder?: string
-  searchKey?: string
-  // Server-side pagination
-  pageCount?: number
-  pageIndex?: number
-  pageSize?: number
-  onPaginationChange?: (pageIndex: number, pageSize: number) => void
-  onSearchChange?: (search: string) => void
-  isLoading?: boolean
-  totalElements?: number
+  columns: ColumnDef<TData, TValue>[]   // 테이블 컬럼 정의
+  data: TData[]                          // 표시할 데이터 배열
+  searchPlaceholder?: string             // 검색창 placeholder
+  searchKey?: string                     // 클라이언트 검색 시 필터링할 키
+  // 서버사이드 페이지네이션 옵션
+  pageCount?: number                     // 전체 페이지 수
+  pageIndex?: number                     // 현재 페이지 (0부터 시작)
+  pageSize?: number                      // 페이지당 항목 수
+  onPaginationChange?: (pageIndex: number, pageSize: number) => void  // 페이지 변경 콜백
+  onSearchChange?: (search: string) => void  // 검색어 변경 콜백
+  isLoading?: boolean                    // 로딩 상태
+  totalElements?: number                 // 전체 항목 수
 }
 
 export function DataTable<TData, TValue>({

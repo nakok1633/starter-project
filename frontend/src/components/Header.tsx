@@ -1,3 +1,10 @@
+/**
+ * 글로벌 헤더 컴포넌트
+ * - 네비게이션 메뉴 (Tasks, UI 컴포넌트)
+ * - 로그인 상태 표시 (사용자명, 역할)
+ * - 로그인/로그아웃 버튼
+ */
+
 "use client"
 
 import { useEffect } from "react"
@@ -8,12 +15,19 @@ import { Button } from "@/components/ui/button"
 export function Header() {
   const router = useRouter()
   const pathname = usePathname()
+  
+  // 인증 상태 및 사용자 정보
   const { user, isAuthenticated, isLoading, logout, initialize } = useAuthStore()
 
+  // 컴포넌트 마운트 시 인증 상태 존기화
   useEffect(() => {
     initialize()
   }, [initialize])
 
+  /**
+   * 로그아웃 처리
+   * 로그아웃 후 로그인 페이지로 이동
+   */
   const handleLogout = async () => {
     await logout()
     router.push("/login")

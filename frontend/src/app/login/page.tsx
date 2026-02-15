@@ -1,3 +1,10 @@
+/**
+ * 로그인/회원가입 페이지
+ * - 탭으로 로그인/회원가입 전환
+ * - React Hook Form + Zod 유효성 검증
+ * - 로그인 성공 시 /tasks로 리다이렉트
+ */
+
 "use client"
 
 import { useEffect, useState } from "react"
@@ -13,11 +20,13 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { AxiosError } from "axios"
 import { ErrorResponse } from "@/types"
 
+/** 로그인 폼 유효성 스키마 */
 const loginSchema = z.object({
   email: z.string().email("올바른 이메일을 입력하세요"),
   password: z.string().min(6, "비밀번호는 최소 6자 이상이어야 합니다"),
 })
 
+/** 회원가입 폼 유효성 스키마 */
 const signupSchema = z.object({
   name: z.string().min(2, "이름은 최소 2자 이상이어야 합니다"),
   email: z.string().email("올바른 이메일을 입력하세요"),

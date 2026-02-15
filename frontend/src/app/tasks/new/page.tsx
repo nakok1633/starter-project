@@ -1,3 +1,9 @@
+/**
+ * 새 태스크 생성 페이지
+ * - React Hook Form + Zod 유효성 검증
+ * - 생성 성공 시 목록으로 리다이렉트
+ */
+
 "use client"
 
 import { useEffect, useState } from "react"
@@ -15,6 +21,7 @@ import { FormField } from "@/components/FormField"
 import { AxiosError } from "axios"
 import { ErrorResponse } from "@/types"
 
+/** 태스크 폼 유효성 스키마 */
 const taskSchema = z.object({
   title: z.string().min(1, "제목을 입력하세요").max(200, "제목은 200자 이내로 입력하세요"),
   description: z.string().optional(),
@@ -24,6 +31,7 @@ const taskSchema = z.object({
 
 type TaskFormData = z.infer<typeof taskSchema>
 
+/** 상태 선택 옵션 */
 const statusOptions = [
   { label: "대기", value: "PENDING" },
   { label: "진행 중", value: "IN_PROGRESS" },
@@ -31,6 +39,7 @@ const statusOptions = [
   { label: "취소", value: "CANCELLED" },
 ]
 
+/** 우선순위 선택 옵션 */
 const priorityOptions = [
   { label: "낮음", value: "LOW" },
   { label: "보통", value: "MEDIUM" },

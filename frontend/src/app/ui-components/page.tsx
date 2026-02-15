@@ -1,3 +1,10 @@
+/**
+ * UI 컴포넌트 가이드 페이지
+ * - 프로젝트에서 사용 가능한 모든 UI 컴포넌트 예시
+ * - Button, Input, Select, Checkbox, Radio, Switch, Badge, Alert, Tabs 등
+ * - 폼 예시와 ConfirmDialog 예시 포함
+ */
+
 "use client"
 
 import * as React from "react"
@@ -37,6 +44,7 @@ import {
 import { ConfirmDialog } from "@/components/ConfirmDialog"
 import { FormField } from "@/components/FormField"
 
+/** 폼 예시용 유효성 스키마 */
 const formSchema = z.object({
   username: z.string().min(2, "이름은 2자 이상이어야 합니다"),
   email: z.string().email("유효한 이메일을 입력하세요"),

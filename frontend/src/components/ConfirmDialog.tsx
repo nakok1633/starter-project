@@ -1,3 +1,10 @@
+/**
+ * 확인 다이얼로그 컴포넌트
+ * - 삭제, 중요 작업 확인 시 사용
+ * - Radix UI AlertDialog 기반
+ * - destructive variant로 위험 작업 강조 가능
+ */
+
 "use client"
 
 import * as React from "react"
@@ -5,16 +12,17 @@ import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
+/** ConfirmDialog 컴포넌트 Props */
 interface ConfirmDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  title: string
-  description?: string
-  confirmText?: string
-  cancelText?: string
-  variant?: "default" | "destructive"
-  onConfirm: () => void | Promise<void>
-  isLoading?: boolean
+  open: boolean                              // 다이얼로그 열림 상태
+  onOpenChange: (open: boolean) => void      // 열림 상태 변경 콜백
+  title: string                              // 다이얼로그 제목
+  description?: string                       // 설명 텍스트
+  confirmText?: string                       // 확인 버튼 텍스트
+  cancelText?: string                        // 취소 버튼 텍스트
+  variant?: "default" | "destructive"        // 확인 버튼 스타일
+  onConfirm: () => void | Promise<void>      // 확인 시 실행할 함수
+  isLoading?: boolean                        // 로딩 상태 (버튼 비활성화)
 }
 
 export function ConfirmDialog({

@@ -1,3 +1,10 @@
+/**
+ * 폼 필드 컴포넌트 (React Hook Form 연동)
+ * - text, email, password, textarea, select 타입 지원
+ * - 오류 메시지 자동 표시
+ * - 필수 필드 표시 (*)
+ */
+
 "use client"
 
 import * as React from "react"
@@ -14,21 +21,23 @@ import {
 } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 
+/** Select 옵션 타입 */
 interface Option {
-  label: string
-  value: string
+  label: string   // 표시 텍스트
+  value: string   // 실제 값
 }
 
+/** FormField 컴포넌트 Props */
 interface FormFieldProps<T extends FieldValues> {
-  control: Control<T>
-  name: Path<T>
-  label: string
-  placeholder?: string
-  type?: "text" | "email" | "password" | "textarea" | "select"
-  options?: Option[]
-  required?: boolean
-  disabled?: boolean
-  className?: string
+  control: Control<T>         // React Hook Form control 객체
+  name: Path<T>               // 필드명
+  label: string               // 레이블 텍스트
+  placeholder?: string        // placeholder
+  type?: "text" | "email" | "password" | "textarea" | "select"  // 필드 타입
+  options?: Option[]          // select 옵션 목록
+  required?: boolean          // 필수 여부
+  disabled?: boolean          // 비활성화 여부
+  className?: string          // 추가 CSS 클래스
 }
 
 export function FormField<T extends FieldValues>({

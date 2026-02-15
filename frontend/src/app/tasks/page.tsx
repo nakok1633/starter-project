@@ -1,3 +1,10 @@
+/**
+ * 태스크 목록 페이지
+ * - 페이지네이션, 검색, 정렬 지원
+ * - 테이블 형태로 태스크 표시
+ * - 태스크 생성/수정/삭제 기능
+ */
+
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
@@ -11,6 +18,7 @@ import { DataTable } from "@/components/DataTable"
 import { Button } from "@/components/ui/button"
 import { ConfirmDialog } from "@/components/ConfirmDialog"
 
+/** 태스크 상태 한글 레이블 */
 const statusLabels: Record<TaskStatus, string> = {
   PENDING: "대기",
   IN_PROGRESS: "진행 중",
@@ -18,6 +26,7 @@ const statusLabels: Record<TaskStatus, string> = {
   CANCELLED: "취소",
 }
 
+/** 태스크 우선순위 한글 레이블 */
 const priorityLabels: Record<TaskPriority, string> = {
   LOW: "낮음",
   MEDIUM: "보통",
@@ -25,6 +34,7 @@ const priorityLabels: Record<TaskPriority, string> = {
   URGENT: "긴급",
 }
 
+/** 상태별 배지 색상 */
 const statusColors: Record<TaskStatus, string> = {
   PENDING: "bg-yellow-100 text-yellow-800",
   IN_PROGRESS: "bg-blue-100 text-blue-800",
@@ -32,6 +42,7 @@ const statusColors: Record<TaskStatus, string> = {
   CANCELLED: "bg-gray-100 text-gray-800",
 }
 
+/** 우선순위별 배지 색상 */
 const priorityColors: Record<TaskPriority, string> = {
   LOW: "bg-gray-100 text-gray-800",
   MEDIUM: "bg-blue-100 text-blue-800",
@@ -41,30 +52,46 @@ const priorityColors: Record<TaskPriority, string> = {
 
 export default function TasksPage() {
   const router = useRouter()
+  
+  // 인증 상태 및 사용자 정보
   const { user, isAuthenticated, isLoading: authLoading, logout, initialize } = useAuthStore()
+  
+  // 태스크 목록 상태
   const [tasks, setTasks] = useState<Task[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  
+  // 페이지네이션 상태
   const [pageIndex, setPageIndex] = useState(0)
   const [pageSize, setPageSize] = useState(10)
   const [totalPages, setTotalPages] = useState(0)
   const [totalElements, setTotalElements] = useState(0)
+  
+  // 검색 상태
   const [search, setSearch] = useState("")
+  
+  // 삭제 다이얼로그 상태
   const [deleteDialog, setDeleteDialog] = useState<{ open: boolean; taskId: number | null }>({
     open: false,
     taskId: null,
   })
   const [isDeleting, setIsDeleting] = useState(false)
 
+  // 컴포넌트 마운트 시 인증 상태 초기화
   useEffect(() => {
     initialize()
   }, [initialize])
 
+  // 비로그인 시 로그인 페이지로 리다이렉트
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
       router.replace("/login")
     }
   }, [isAuthenticated, authLoading, router])
 
+  /**
+   * 태스크 목록 조회
+   * 페이지, 검색어 변경 시 자동 재조회
+   */
   const fetchTasks = useCallback(async () => {
     if (!isAuthenticated) return
     
@@ -89,12 +116,17 @@ export default function TasksPage() {
     }
   }, [pageIndex, pageSize, search, isAuthenticated])
 
+  // 페이지, 검색어, 인증 상태 변경 시 태스크 재조회
   useEffect(() => {
     if (isAuthenticated) {
       fetchTasks()
     }
   }, [fetchTasks, isAuthenticated])
 
+  /**
+   * 태스크 삭제 처리
+   * 삭제 후 목록 재조회
+   */
   const handleDelete = async () => {
     if (!deleteDialog.taskId) return
 
@@ -110,11 +142,16 @@ export default function TasksPage() {
     }
   }
 
+  /**
+   * 로그아웃 처리
+   * 로그아웃 후 로그인 페이지로 이동
+   */
   const handleLogout = async () => {
     await logout()
     router.replace("/login")
   }
 
+  /** 테이블 컬럼 정의 */
   const columns: ColumnDef<Task>[] = [
     {
       accessorKey: "id",
@@ -183,6 +220,7 @@ export default function TasksPage() {
     },
   ]
 
+  // 인증 로딩 중 스피너 표시
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
