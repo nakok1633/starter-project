@@ -128,18 +128,18 @@ export default function EditTaskPage() {
 
   if (authLoading || isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="page-loading">
+        <div className="spinner"></div>
       </div>
     )
   }
 
   if (!task && !isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-lg shadow">
-            <div className="p-6 border-b">
+      <div className="page-container">
+        <div className="content-wrapper">
+          <div className="card-container">
+            <div className="card-header">
               <div className="flex items-center gap-4">
                 <Button
                   variant="ghost"
@@ -151,7 +151,7 @@ export default function EditTaskPage() {
                 </Button>
               </div>
             </div>
-            <div className="p-6">
+            <div className="card-body">
               <p className="text-center text-muted-foreground py-8">
                 {error || "태스크를 찾을 수 없습니다"}
               </p>
@@ -163,11 +163,11 @@ export default function EditTaskPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow">
+    <div className="page-container">
+      <div className="content-wrapper">
+        <div className="card-container">
           {/* 헤더 영역 */}
-          <div className="p-6 border-b">
+          <div className="card-header">
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
@@ -178,20 +178,20 @@ export default function EditTaskPage() {
                 돌아가기
               </Button>
               <div>
-                <h1 className="text-lg font-semibold">태스크 수정</h1>
-                <p className="text-sm text-muted-foreground">태스크 정보를 수정합니다</p>
+                <h1 className="page-title">태스크 수정</h1>
+                <p className="page-description">태스크 정보를 수정합니다</p>
               </div>
             </div>
           </div>
           {/* 본문 영역 */}
-          <div className="p-6">
+          <div className="card-body">
             {error && (
-              <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-                <p className="text-sm text-destructive">{error}</p>
+              <div className="error-box mb-4">
+                <p className="error-text">{error}</p>
               </div>
             )}
 
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 max-w-2xl">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="form-container">
               <FormField
                 control={form.control}
                 name="title"
@@ -208,7 +208,7 @@ export default function EditTaskPage() {
                 placeholder="태스크에 대한 상세 설명을 입력하세요"
               />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid-2-cols">
                 <FormField
                   control={form.control}
                   name="status"
@@ -228,7 +228,7 @@ export default function EditTaskPage() {
                 />
               </div>
 
-              <div className="flex justify-end gap-4">
+              <div className="button-group">
                 <Button
                   type="button"
                   variant="outline"

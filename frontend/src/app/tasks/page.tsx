@@ -313,22 +313,22 @@ export default function TasksPage() {
   // 인증 로딩 중 스피너 표시
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="page-loading">
+        <div className="spinner"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="page-container">
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b">
+      <div className="content-wrapper">
+        <div className="card-container">
+          <div className="card-header">
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="text-lg font-semibold">태스크 목록</h2>
-                <p className="text-sm text-muted-foreground">
+                <h2 className="page-title">태스크 목록</h2>
+                <p className="page-description">
                   총 {totalElements}개의 태스크
                 </p>
               </div>
@@ -338,7 +338,7 @@ export default function TasksPage() {
               </Button>
             </div>
           </div>
-          <div className="p-6">
+          <div className="card-body">
             <DataTable
               columns={columns}
               data={tasks}

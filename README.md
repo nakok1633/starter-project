@@ -277,24 +277,41 @@ docker-compose down -v
 
 ## 페이지 레이아웃 가이드
 
-새 페이지 생성 시 아래 표준 레이아웃을 사용하세요.
+공통 CSS 클래스는 `globals.css`에 정의되어 있습니다. 새 페이지 생성 시 아래 클래스를 사용하세요.
+
+### 공통 CSS 클래스
+
+| 클래스 | 용도 |
+|--------|------|
+| `page-container` | 페이지 전체 컨테이너 |
+| `page-loading` | 로딩 화면 컨테이너 |
+| `page-center` | 센터 정렬 (로그인 등) |
+| `content-wrapper` | 콘텐츠 래퍼 (max-w-7xl) |
+| `card-container` | 카드 컨테이너 (흰색 배경 + 그림자) |
+| `card-header` | 카드 헤더 영역 |
+| `card-body` | 카드 본문 영역 |
+| `page-title` | 페이지 제목 |
+| `page-description` | 페이지 설명 |
+| `spinner` | 로딩 스피너 |
+| `form-container` | 폼 컨테이너 |
+| `error-box` / `error-text` | 에러 메시지 |
+| `success-box` / `warning-box` | 성공/경고 메시지 |
+| `grid-2-cols` | 2열 그리드 |
+| `button-group` | 버튼 그룹 (오른쪽 정렬) |
+| `input-md` | 입력 필드 최대 너비 |
 
 ### 일반 페이지 (목록, 상세, 설정 등)
 
 ```tsx
 return (
-  <div className="min-h-screen bg-gray-50">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="bg-white rounded-lg shadow">
-        {/* 헤더 영역 */}
-        <div className="p-6 border-b">
-          <div>
-            <h1 className="text-lg font-semibold">페이지 제목</h1>
-            <p className="text-sm text-muted-foreground">페이지 설명</p>
-          </div>
+  <div className="page-container">
+    <div className="content-wrapper">
+      <div className="card-container">
+        <div className="card-header">
+          <h1 className="page-title">페이지 제목</h1>
+          <p className="page-description">페이지 설명</p>
         </div>
-        {/* 본문 영역 */}
-        <div className="p-6">
+        <div className="card-body">
           {/* 내용 */}
         </div>
       </div>
@@ -308,8 +325,8 @@ return (
 ```tsx
 if (isLoading) {
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+    <div className="page-loading">
+      <div className="spinner"></div>
     </div>
   )
 }
@@ -319,7 +336,7 @@ if (isLoading) {
 
 ```tsx
 return (
-  <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+  <div className="page-center">
     <Card className="w-full max-w-md">
       {/* 내용 */}
     </Card>

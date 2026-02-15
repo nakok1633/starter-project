@@ -86,18 +86,18 @@ export default function UIComponentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b">
+    <div className="page-container">
+      <div className="content-wrapper">
+        <div className="card-container">
+          <div className="card-header">
             <div>
-              <h1 className="text-lg font-semibold">UI 컴포넌트 가이드</h1>
-              <p className="text-sm text-muted-foreground">
+              <h1 className="page-title">UI 컴포넌트 가이드</h1>
+              <p className="page-description">
                 프로젝트에서 사용 가능한 기본 UI 컴포넌트들의 예제입니다.
               </p>
             </div>
           </div>
-          <div className="p-6">
+          <div className="card-body">
             <Tabs defaultValue="inputs" className="space-y-6">
           <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="inputs">입력 요소</TabsTrigger>

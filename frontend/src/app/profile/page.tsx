@@ -192,8 +192,8 @@ export default function ProfilePage() {
   // 로딩 중 표시 (user 정보가 없을 때만)
   if (authLoading || (!user && isLoadingUser)) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="page-loading">
+        <div className="spinner"></div>
       </div>
     )
   }
@@ -210,18 +210,18 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow">
-          <div className="p-6 border-b">
+    <div className="page-container">
+      <div className="content-wrapper">
+        <div className="card-container">
+          <div className="card-header">
             <div>
-              <h1 className="text-lg font-semibold">내 정보</h1>
-              <p className="text-sm text-muted-foreground">
+              <h1 className="page-title">내 정보</h1>
+              <p className="page-description">
                 계정 정보 및 설정을 관리합니다
               </p>
             </div>
           </div>
-          <div className="p-6 space-y-6">
+          <div className="card-body space-y-6">
             {/* 기본 정보 카드 */}
             <Card>
               <CardHeader>
@@ -229,7 +229,7 @@ export default function ProfilePage() {
                 <CardDescription>현재 로그인한 계정의 정보입니다</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid-2-md-3-cols">
                   <div>
                     <Label className="text-gray-500">이름</Label>
                     <p className="font-medium">{userDetail?.name || user?.name}</p>
@@ -268,23 +268,23 @@ export default function ProfilePage() {
                       id="name"
                       {...profileForm.register("name")}
                       placeholder="이름을 입력하세요"
-                      className="max-w-md"
+                      className="input-md"
                     />
                     {profileForm.formState.errors.name && (
-                      <p className="text-sm text-red-500">{profileForm.formState.errors.name.message}</p>
+                      <p className="error-text">{profileForm.formState.errors.name.message}</p>
                     )}
                   </div>
 
                   {/* 에러 메시지 */}
                   {profileError && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm max-w-md">
+                    <div className="warning-box">
                       {profileError}
                     </div>
                   )}
 
                   {/* 성공 메시지 */}
                   {profileSuccess && (
-                    <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm max-w-md">
+                    <div className="success-box">
                       {profileSuccess}
                     </div>
                   )}
@@ -311,10 +311,10 @@ export default function ProfilePage() {
                       type="password"
                       {...passwordForm.register("currentPassword")}
                       placeholder="현재 비밀번호를 입력하세요"
-                      className="max-w-md"
+                      className="input-md"
                     />
                     {passwordForm.formState.errors.currentPassword && (
-                      <p className="text-sm text-red-500">{passwordForm.formState.errors.currentPassword.message}</p>
+                      <p className="error-text">{passwordForm.formState.errors.currentPassword.message}</p>
                     )}
                   </div>
 
@@ -325,10 +325,10 @@ export default function ProfilePage() {
                       type="password"
                       {...passwordForm.register("newPassword")}
                       placeholder="새 비밀번호를 입력하세요"
-                      className="max-w-md"
+                      className="input-md"
                     />
                     {passwordForm.formState.errors.newPassword && (
-                      <p className="text-sm text-red-500">{passwordForm.formState.errors.newPassword.message}</p>
+                      <p className="error-text">{passwordForm.formState.errors.newPassword.message}</p>
                     )}
                   </div>
 
@@ -339,23 +339,23 @@ export default function ProfilePage() {
                       type="password"
                       {...passwordForm.register("confirmPassword")}
                       placeholder="새 비밀번호를 다시 입력하세요"
-                      className="max-w-md"
+                      className="input-md"
                     />
                     {passwordForm.formState.errors.confirmPassword && (
-                      <p className="text-sm text-red-500">{passwordForm.formState.errors.confirmPassword.message}</p>
+                      <p className="error-text">{passwordForm.formState.errors.confirmPassword.message}</p>
                     )}
                   </div>
 
                   {/* 에러 메시지 */}
                   {passwordError && (
-                    <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm max-w-md">
+                    <div className="warning-box">
                       {passwordError}
                     </div>
                   )}
 
                   {/* 성공 메시지 */}
                   {passwordSuccess && (
-                    <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm max-w-md">
+                    <div className="success-box">
                       {passwordSuccess}
                     </div>
                   )}

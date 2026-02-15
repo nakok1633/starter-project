@@ -57,3 +57,107 @@
     @apply bg-background text-foreground;
   }
 }
+
+/**
+ * ============================================================
+ * 공통 레이아웃 클래스
+ * ============================================================
+ * 모든 페이지에서 일관된 레이아웃을 위해 사용합니다.
+ * 새 페이지 생성 시 이 클래스들을 사용하세요.
+ */
+@layer components {
+  /* 페이지 전체 컨테이너 - 모든 페이지의 최상위 div에 적용 */
+  .page-container {
+    @apply min-h-screen bg-gray-50;
+  }
+
+  /* 로딩 화면 컨테이너 */
+  .page-loading {
+    @apply min-h-screen bg-gray-50 flex items-center justify-center;
+  }
+
+  /* 센터 정렬 페이지 (로그인, 에러 페이지 등) */
+  .page-center {
+    @apply min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8;
+  }
+
+  /* 콘텐츠 래퍼 - 최대 너비 제한 및 여백 */
+  .content-wrapper {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  /* 카드 컨테이너 - 흰색 배경 + 둥근 모서리 + 그림자 */
+  .card-container {
+    @apply bg-white rounded-lg shadow;
+  }
+
+  /* 카드 헤더 영역 */
+  .card-header {
+    @apply p-6 border-b;
+  }
+
+  /* 카드 본문 영역 */
+  .card-body {
+    @apply p-6;
+  }
+
+  /* 페이지 제목 */
+  .page-title {
+    @apply text-lg font-semibold;
+  }
+
+  /* 페이지 설명 */
+  .page-description {
+    @apply text-sm text-muted-foreground;
+  }
+
+  /* 로딩 스피너 */
+  .spinner {
+    @apply animate-spin rounded-full h-8 w-8 border-b-2 border-primary;
+  }
+
+  /* 폼 컨테이너 - 최대 너비 제한 */
+  .form-container {
+    @apply space-y-6 max-w-2xl;
+  }
+
+  /* 에러 메시지 박스 */
+  .error-box {
+    @apply p-3 bg-destructive/10 border border-destructive/20 rounded-md;
+  }
+
+  /* 에러 텍스트 */
+  .error-text {
+    @apply text-sm text-destructive;
+  }
+
+  /* 성공 메시지 박스 */
+  .success-box {
+    @apply p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm max-w-md;
+  }
+
+  /* 경고 메시지 박스 */
+  .warning-box {
+    @apply p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm max-w-md;
+  }
+
+  /* 그리드 2열 레이아웃 */
+  .grid-2-cols {
+    @apply grid grid-cols-2 gap-4;
+  }
+
+  /* 그리드 3열 레이아웃 (모바일에서 2열) */
+  .grid-2-md-3-cols {
+    @apply grid grid-cols-2 md:grid-cols-3 gap-4;
+  }
+
+  /* 버튼 그룹 (오른쪽 정렬) */
+  .button-group {
+    @apply flex justify-end gap-4;
+  }
+
+  /* 폼 필드 입력 최대 너비 */
+  .input-md {
+    @apply max-w-md;
+  }
+}

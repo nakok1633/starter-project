@@ -194,14 +194,14 @@ export default function LoginPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="page-loading">
+        <div className="spinner"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="page-center">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
@@ -215,8 +215,8 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           {error && (
-            <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
-              <p className="text-sm text-destructive">{error}</p>
+            <div className="error-box mb-4">
+              <p className="error-text">{error}</p>
             </div>
           )}
 
