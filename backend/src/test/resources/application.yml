@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/testdb
+    username: test
+    password: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: true
+
+jwt:
+  secret: TestSecretKeyForJWTTokenGenerationMustBeAtLeast256BitsLongTestKey
+  access-token-expiration: 3600000
+  refresh-token-expiration: 604800000
