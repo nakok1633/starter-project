@@ -192,8 +192,8 @@ export default function ProfilePage() {
   // 로딩 중 표시 (user 정보가 없을 때만)
   if (authLoading || (!user && isLoadingUser)) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500">로딩 중...</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
       </div>
     )
   }
@@ -210,149 +210,165 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="container mx-auto py-8 px-4 max-w-2xl">
-      <h1 className="text-2xl font-bold mb-6">내 정보</h1>
-
-      {/* 기본 정보 카드 */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>계정 정보</CardTitle>
-          <CardDescription>현재 로그인한 계정의 정보입니다</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-lg shadow">
+          <div className="p-6 border-b">
             <div>
-              <Label className="text-gray-500">이름</Label>
-              <p className="font-medium">{userDetail?.name || user?.name}</p>
-            </div>
-            <div>
-              <Label className="text-gray-500">이메일</Label>
-              <p className="font-medium">{userDetail?.email || user?.email}</p>
-            </div>
-            <div>
-              <Label className="text-gray-500">역할</Label>
-              <p className="font-medium">{(userDetail?.role || user?.role) === "ADMIN" ? "관리자" : "일반 사용자"}</p>
-            </div>
-            <div>
-              <Label className="text-gray-500">가입일</Label>
-              <p className="font-medium">{userDetail?.createdAt ? formatDate(userDetail.createdAt) : "-"}</p>
-            </div>
-            <div>
-              <Label className="text-gray-500">마지막 수정</Label>
-              <p className="font-medium">{userDetail?.updatedAt ? formatDate(userDetail.updatedAt) : "-"}</p>
+              <h1 className="text-lg font-semibold">내 정보</h1>
+              <p className="text-sm text-muted-foreground">
+                계정 정보 및 설정을 관리합니다
+              </p>
             </div>
           </div>
-        </CardContent>
-      </Card>
+          <div className="p-6 space-y-6">
+            {/* 기본 정보 카드 */}
+            <Card>
+              <CardHeader>
+                <CardTitle>계정 정보</CardTitle>
+                <CardDescription>현재 로그인한 계정의 정보입니다</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div>
+                    <Label className="text-gray-500">이름</Label>
+                    <p className="font-medium">{userDetail?.name || user?.name}</p>
+                  </div>
+                  <div>
+                    <Label className="text-gray-500">이메일</Label>
+                    <p className="font-medium">{userDetail?.email || user?.email}</p>
+                  </div>
+                  <div>
+                    <Label className="text-gray-500">역할</Label>
+                    <p className="font-medium">{(userDetail?.role || user?.role) === "ADMIN" ? "관리자" : "일반 사용자"}</p>
+                  </div>
+                  <div>
+                    <Label className="text-gray-500">가입일</Label>
+                    <p className="font-medium">{userDetail?.createdAt ? formatDate(userDetail.createdAt) : "-"}</p>
+                  </div>
+                  <div>
+                    <Label className="text-gray-500">마지막 수정</Label>
+                    <p className="font-medium">{userDetail?.updatedAt ? formatDate(userDetail.updatedAt) : "-"}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-      {/* 이름 변경 카드 */}
-      <Card className="mb-6">
-        <CardHeader>
-          <CardTitle>이름 변경</CardTitle>
-          <CardDescription>표시될 이름을 변경합니다</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={profileForm.handleSubmit(handleProfileSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="name">이름</Label>
-              <Input
-                id="name"
-                {...profileForm.register("name")}
-                placeholder="이름을 입력하세요"
-              />
-              {profileForm.formState.errors.name && (
-                <p className="text-sm text-red-500">{profileForm.formState.errors.name.message}</p>
-              )}
-            </div>
+            {/* 이름 변경 카드 */}
+            <Card>
+              <CardHeader>
+                <CardTitle>이름 변경</CardTitle>
+                <CardDescription>표시될 이름을 변경합니다</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={profileForm.handleSubmit(handleProfileSubmit)} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">이름</Label>
+                    <Input
+                      id="name"
+                      {...profileForm.register("name")}
+                      placeholder="이름을 입력하세요"
+                      className="max-w-md"
+                    />
+                    {profileForm.formState.errors.name && (
+                      <p className="text-sm text-red-500">{profileForm.formState.errors.name.message}</p>
+                    )}
+                  </div>
 
-            {/* 에러 메시지 */}
-            {profileError && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-                {profileError}
-              </div>
-            )}
+                  {/* 에러 메시지 */}
+                  {profileError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm max-w-md">
+                      {profileError}
+                    </div>
+                  )}
 
-            {/* 성공 메시지 */}
-            {profileSuccess && (
-              <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
-                {profileSuccess}
-              </div>
-            )}
+                  {/* 성공 메시지 */}
+                  {profileSuccess && (
+                    <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm max-w-md">
+                      {profileSuccess}
+                    </div>
+                  )}
 
-            <Button type="submit" disabled={isSubmittingProfile}>
-              {isSubmittingProfile ? "저장 중..." : "이름 변경"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+                  <Button type="submit" disabled={isSubmittingProfile}>
+                    {isSubmittingProfile ? "저장 중..." : "이름 변경"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
 
-      {/* 비밀번호 변경 카드 */}
-      <Card>
-        <CardHeader>
-          <CardTitle>비밀번호 변경</CardTitle>
-          <CardDescription>계정 비밀번호를 변경합니다</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={passwordForm.handleSubmit(handlePasswordSubmit)} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="currentPassword">현재 비밀번호</Label>
-              <Input
-                id="currentPassword"
-                type="password"
-                {...passwordForm.register("currentPassword")}
-                placeholder="현재 비밀번호를 입력하세요"
-              />
-              {passwordForm.formState.errors.currentPassword && (
-                <p className="text-sm text-red-500">{passwordForm.formState.errors.currentPassword.message}</p>
-              )}
-            </div>
+            {/* 비밀번호 변경 카드 */}
+            <Card>
+              <CardHeader>
+                <CardTitle>비밀번호 변경</CardTitle>
+                <CardDescription>계정 비밀번호를 변경합니다</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={passwordForm.handleSubmit(handlePasswordSubmit)} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="currentPassword">현재 비밀번호</Label>
+                    <Input
+                      id="currentPassword"
+                      type="password"
+                      {...passwordForm.register("currentPassword")}
+                      placeholder="현재 비밀번호를 입력하세요"
+                      className="max-w-md"
+                    />
+                    {passwordForm.formState.errors.currentPassword && (
+                      <p className="text-sm text-red-500">{passwordForm.formState.errors.currentPassword.message}</p>
+                    )}
+                  </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="newPassword">새 비밀번호</Label>
-              <Input
-                id="newPassword"
-                type="password"
-                {...passwordForm.register("newPassword")}
-                placeholder="새 비밀번호를 입력하세요"
-              />
-              {passwordForm.formState.errors.newPassword && (
-                <p className="text-sm text-red-500">{passwordForm.formState.errors.newPassword.message}</p>
-              )}
-            </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="newPassword">새 비밀번호</Label>
+                    <Input
+                      id="newPassword"
+                      type="password"
+                      {...passwordForm.register("newPassword")}
+                      placeholder="새 비밀번호를 입력하세요"
+                      className="max-w-md"
+                    />
+                    {passwordForm.formState.errors.newPassword && (
+                      <p className="text-sm text-red-500">{passwordForm.formState.errors.newPassword.message}</p>
+                    )}
+                  </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">새 비밀번호 확인</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                {...passwordForm.register("confirmPassword")}
-                placeholder="새 비밀번호를 다시 입력하세요"
-              />
-              {passwordForm.formState.errors.confirmPassword && (
-                <p className="text-sm text-red-500">{passwordForm.formState.errors.confirmPassword.message}</p>
-              )}
-            </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">새 비밀번호 확인</Label>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      {...passwordForm.register("confirmPassword")}
+                      placeholder="새 비밀번호를 다시 입력하세요"
+                      className="max-w-md"
+                    />
+                    {passwordForm.formState.errors.confirmPassword && (
+                      <p className="text-sm text-red-500">{passwordForm.formState.errors.confirmPassword.message}</p>
+                    )}
+                  </div>
 
-            {/* 에러 메시지 */}
-            {passwordError && (
-              <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-                {passwordError}
-              </div>
-            )}
+                  {/* 에러 메시지 */}
+                  {passwordError && (
+                    <div className="p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm max-w-md">
+                      {passwordError}
+                    </div>
+                  )}
 
-            {/* 성공 메시지 */}
-            {passwordSuccess && (
-              <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm">
-                {passwordSuccess}
-              </div>
-            )}
+                  {/* 성공 메시지 */}
+                  {passwordSuccess && (
+                    <div className="p-3 bg-green-50 border border-green-200 rounded text-green-700 text-sm max-w-md">
+                      {passwordSuccess}
+                    </div>
+                  )}
 
-            <Button type="submit" disabled={isSubmittingPassword}>
-              {isSubmittingPassword ? "변경 중..." : "비밀번호 변경"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+                  <Button type="submit" disabled={isSubmittingPassword}>
+                    {isSubmittingPassword ? "변경 중..." : "비밀번호 변경"}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
