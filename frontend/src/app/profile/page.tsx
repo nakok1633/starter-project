@@ -97,6 +97,15 @@ export default function ProfilePage() {
   }, [initialize])
 
   /**
+   * user 정보가 있으면 폼에 미리 설정 (로그인 시 저장된 정보)
+   */
+  useEffect(() => {
+    if (user) {
+      profileForm.setValue("name", user.name)
+    }
+  }, [user, profileForm])
+
+  /**
    * 인증 상태 확인 후 사용자 정보 로드 또는 로그인 페이지로 이동
    */
   useEffect(() => {
@@ -180,8 +189,8 @@ export default function ProfilePage() {
     }
   }
 
-  // 로딩 중 표시
-  if (authLoading || isLoadingUser) {
+  // 로딩 중 표시 (user 정보가 없을 때만)
+  if (authLoading || (!user && isLoadingUser)) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-gray-500">로딩 중...</p>
@@ -213,20 +222,24 @@ export default function ProfilePage() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
+              <Label className="text-gray-500">이름</Label>
+              <p className="font-medium">{userDetail?.name || user?.name}</p>
+            </div>
+            <div>
               <Label className="text-gray-500">이메일</Label>
-              <p className="font-medium">{userDetail?.email}</p>
+              <p className="font-medium">{userDetail?.email || user?.email}</p>
             </div>
             <div>
               <Label className="text-gray-500">역할</Label>
-              <p className="font-medium">{userDetail?.role === "ADMIN" ? "관리자" : "일반 사용자"}</p>
+              <p className="font-medium">{(userDetail?.role || user?.role) === "ADMIN" ? "관리자" : "일반 사용자"}</p>
             </div>
             <div>
               <Label className="text-gray-500">가입일</Label>
-              <p className="font-medium">{userDetail?.createdAt && formatDate(userDetail.createdAt)}</p>
+              <p className="font-medium">{userDetail?.createdAt ? formatDate(userDetail.createdAt) : "-"}</p>
             </div>
             <div>
               <Label className="text-gray-500">마지막 수정</Label>
-              <p className="font-medium">{userDetail?.updatedAt && formatDate(userDetail.updatedAt)}</p>
+              <p className="font-medium">{userDetail?.updatedAt ? formatDate(userDetail.updatedAt) : "-"}</p>
             </div>
           </div>
         </CardContent>
